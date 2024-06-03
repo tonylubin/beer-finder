@@ -1,0 +1,27 @@
+@use '../../sass/' as *;
+
+.btn {
+  background-color: transparent;
+  border: none;
+  height: ($base-rem-length * 25);
+  width: ($base-rem-length * 25);
+  cursor: pointer;
+  border-radius: 50%;
+  @include flexCenter;
+}
+
+.moon {
+  color: $neonGreen;
+  height: ($base-rem-length * 15);
+  width: ($base-rem-length * 15);
+}
+
+.sun {
+  color: $dark-primaryText;
+  height: ($base-rem-length * 15);
+  width: ($base-rem-length * 15);
+}
+
+.btn:hover {
+  background-color: var(--toggleHover);
+}

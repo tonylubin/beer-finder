@@ -1,0 +1,50 @@
+// Fonts
+$lato-font: "Lato", sans-serif;
+$antonio-font: "Antonio", sans-serif;
+$roboto-font: 'Roboto Slab', serif;;
+
+// Font-weight
+$font-weight-base: 100;
+
+// light colours
+$main-background-color: #fff;
+$card-color: #f7f7f7;
+$search-box-color: #f5f5f5;
+$secondary-color: #1BA7CD;
+$primary-color: #000;
+$border1-color: #e0dedc85;
+$border2-color: #acacac;
+$card-border: #c3c6ce;
+$menu-color: #e3e3e3;
+$neonGreen: #34D19F;
+$aqua: #00FFBF;
+$scroll-thumbBg: #e4e4e4;
+$scroll-thumbBorder: #aaa;
+$box-shadow: scale-color($primary-color, $alpha: -80%);
+$card-box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+
+// beer colours
+$paleLager: #EADA24;
+$lager: #FFC72C;
+$pilsner: #FF9E1B;
+$wheat: #D38235;
+$goldenAle: #D86018;
+$darkAle: #7C2529;
+$porter: #643335;
+$stout: #3F2021;
+$imperialStout: #25282A;
+
+// dark colours
+$dark-main: #141218;
+$dark-secondary: #211F26;
+$dark-primaryText: #D0BCFF;
+$dark-secondaryText: #6750A4;
+$dark-scroll-thumb: #36343B;
+$dark-scroll-track: #2B2930;
+$dark-box-shadow: scale-color($dark-secondaryText, $alpha: -50%);
+
+// Spacing
+$base-px-length: 5px;
+$base-rem-length: 0.1rem;
+$card-height: 480px;
+$card-width: 300px;

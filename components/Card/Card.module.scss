@@ -1,0 +1,31 @@
+@use '../../sass' as *;
+
+.cardDisplay {
+  position: relative;
+  height: $card-height;
+  width: $card-width;
+  border: 2px solid var(--cardBorder);
+  border-radius: ($base-px-length * 3);
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  perspective: ($card-width * 2);
+  box-shadow: $card-box-shadow;
+
+  &__front {
+    position: absolute;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__back {
+    @extend .cardDisplay__front;
+    transform: rotateY(180deg);
+    // for backward perspective(when flipped reads left to right)
+  }
+}
+
+.cardDisplayRotate {
+    transform: rotateY(180deg);
+}

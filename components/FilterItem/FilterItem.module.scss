@@ -1,0 +1,30 @@
+@use '../../sass/variables' as *;
+
+.filterItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: ($base-rem-length * 8);
+  color: var(--textSecondaryColor);
+  font-weight: ($font-weight-base * 7);
+  font-family: $lato-font;
+  gap: ($base-rem-length * 3);
+}
+
+.checkbox {
+  accent-color: var(--textSecondaryColor);
+  color: var(--mainBg);
+}
+
+@media screen and (min-width: 768px) {
+  .filterItem {
+    font-size: ($base-rem-length * 11);
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .filterItem {
+    font-size: ($base-rem-length * 11);
+    flex-grow: 1;
+  }
+}

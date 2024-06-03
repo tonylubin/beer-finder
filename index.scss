@@ -1,0 +1,49 @@
+@use 'sass' as *;
+
+/* CSS Resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body, #root {
+  min-height: 100vh;
+  line-height: 1.5;
+  background-color: var(--mainBg);
+  color: var(--primaryFontColor);
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, select {
+  color: var(--primaryFontColor);
+}
+
+input, button, select {
+  font: inherit;
+}
+
+li::marker {
+  color: var(--textSecondaryColor);
+}
+
+// light theme
+:root {
+  @include light;
+
+  &[data-theme='dark']{
+    @include dark;
+  }
+}

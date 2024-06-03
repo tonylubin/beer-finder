@@ -1,0 +1,105 @@
+@use '../../sass' as *;
+
+.cardBack {
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    background-color: var(--secondaryBg);
+    border-radius: ($base-px-length * 3);
+    font-family: $roboto-font;
+    font-weight: ($font-weight-base * 3);
+
+    /* Works on Firefox */
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+    
+    > h3 {
+        @include textUnderline;
+        color: var(--textSecondaryColor);
+        @include padding(15,0,10,0);
+    }
+}
+
+.foodPairing {
+    text-align: left;
+    @include padding(0,20,0,20);
+}
+
+.foodList {
+    text-align: left;
+    @include padding(0,20,0,20);
+    margin-left: $base-rem-length * 15;
+
+    > li {
+        margin-bottom: $base-rem-length * 3;
+    }
+}
+
+.info {
+    font-size: ($base-rem-length * 11);
+    font-weight: bold;
+    @include padding(0,2,0,5);
+    color: var(--textSecondaryColor);
+    @include textUnderline;
+}
+
+/* Works on Chrome, Edge, and Safari */
+.cardBack::-webkit-scrollbar {
+width: ($base-px-length * 2);
+}
+
+.cardBack::-webkit-scrollbar-track {
+box-shadow: inset 0 0 ($base-px-length + 1) rgba(0,0,0,0.3);
+border-radius: ($base-px-length * 2);
+background-color: var(--scrollTrackBg);
+}
+
+.cardBack::-webkit-scrollbar-thumb {
+border-radius: ($base-px-length * 2);
+background: var(--scrollThumbBg);
+border: ($base-px-length - 4) solid var(--scrollThumbBorder);
+}
+
+.chart {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    @include padding(5,10,20,10);
+    list-style-type: none;
+    color: var(--mainBG);
+    gap: 0.5px;
+
+    &__color1 {
+        background-color: $paleLager;
+    }
+    &__color2 {
+        background-color: $lager;
+    }
+    &__color3 {
+        background-color: $pilsner;
+    }
+    &__color4 {
+        background-color: $wheat;
+    }
+    &__color5 {
+        background-color: $goldenAle;
+    }
+    &__color6 {
+        background-color: $darkAle;
+    }
+    &__color7 {
+        background-color: $porter;
+    }
+    &__color8 {
+        background-color: $stout;
+    }
+    &__color9 {
+        background-color: $imperialStout;
+    }
+
+    &__highlight {
+        transform: scale(1.5);
+        border-radius: 2px;
+        color: $search-box-color;
+    }
+}

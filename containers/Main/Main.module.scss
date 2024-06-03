@@ -1,0 +1,20 @@
+@use '../../sass/' as *;
+
+.notFound {
+    text-align: center;
+    font-size: ($base-rem-length * 25);
+    grid-column: 2;
+    color: var(--textSecondaryColor);
+}
+
+.loading {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+}
+
+.noResults {
+    grid-column: 2 / 3;
+    margin-top: calc(50% - 8rem);
+    margin-right: 10vw;    
+}

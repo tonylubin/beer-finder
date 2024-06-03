@@ -1,0 +1,37 @@
+@use 'variables' as *;
+
+@mixin light {
+  --mainBg: #{$main-background-color};
+  --secondaryBg: #{$search-box-color};
+  --textPrimaryColor: #{$primary-color};
+  --textSecondaryColor: #{$neonGreen};
+  --cardColor: #{$aqua};
+  --cardBorder: #{$card-border};
+  --borderColor: #{$border1-color};
+  --borderColorAlt: #{$border2-color};
+  --menuColor: #{$menu-color};
+  --scrollThumbBg: #{$scroll-thumbBg};
+  --scrollThumbBorder: #{$scroll-thumbBorder};
+  --scrollTrackBg: #{$search-box-color};
+  --primaryFontColor: #{$primary-color};
+  --boxShadow: #{$box-shadow};
+  --toggleHover: #{scale-color($neonGreen, $alpha: -70%)};
+}
+
+@mixin dark {
+  --mainBg: #{$dark-main};
+  --secondaryBg: #{$dark-secondary};
+  --textPrimaryColor: #{$main-background-color};
+  --textSecondaryColor: #{$dark-secondaryText};
+  --cardColor: #{$dark-primaryText};
+  --cardBorder: #{$dark-scroll-thumb};
+  --borderColor: #{$border1-color};
+  --borderColorAlt: #{$border2-color};
+  --menuColor: #{$dark-scroll-thumb};
+  --scrollThumbBg: #{$dark-scroll-thumb};
+  --scrollThumbBorder: #{$dark-secondary};
+  --scrollTrackBg: #{$dark-scroll-track};
+  --primaryFontColor: #{$main-background-color};
+  --boxShadow: #{$dark-box-shadow};
+  --toggleHover: #{scale-color($dark-primaryText, $alpha: -70%)};
+}

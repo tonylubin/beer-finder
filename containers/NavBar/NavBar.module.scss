@@ -1,0 +1,43 @@
+@use '../../sass/' as *;
+
+.container {
+    display: none;
+
+    .nav{
+      font-weight: 700;
+    }
+    
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 20vw;
+    position: fixed;
+    top: 18vh;
+
+    .nav {
+      display: flex;
+      flex-direction: column;  
+      width: min-content;
+      gap: ($base-rem-length * 13);
+      font-family: $lato-font;
+      @include padding(80,0,0,15);
+
+      &__header {
+        font-size: ($base-rem-length * 14);
+        text-decoration: underline;
+        text-underline-offset: ($base-rem-length * 5);
+        text-decoration-thickness: 3px;
+      }
+
+      .info {
+        padding-top: ($base-rem-length * 18);
+        font-size: ($base-rem-length * 11);
+        @include textUnderline;
+      }
+    }
+  }
+}

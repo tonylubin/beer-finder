@@ -1,0 +1,55 @@
+@use '../../sass/variables' as *;
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: ($base-rem-length * 8);
+  font-size: ($base-rem-length * 8);
+  color: var(--textSecondaryColor);
+  font-weight: ($font-weight-base * 7);
+  font-family: $lato-font;
+
+  > select {
+    font-weight: ($font-weight-base * 4);
+    background-color: var(--secondaryBg);
+    border-radius: $base-px-length;
+  }
+}
+
+.filterHolder__icon {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .dropdown {
+    font-size: ($base-rem-length * 11);
+    flex-direction: row;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .dropdown {
+    flex-direction: column;
+    font-size: ($base-rem-length * 11);
+
+    &__heading {
+      display: flex;
+    }
+  }
+
+  .filterHolder {
+    display: flex;
+    align-items: flex-end;
+    gap: ($base-rem-length *5);
+
+    &__icon {
+      display: block;
+      height: ($base-rem-length * 15);
+      width: ($base-rem-length * 15);
+    }
+  }
+
+  .beer {
+    rotate: 15deg;
+  }
+}

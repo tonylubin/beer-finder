@@ -1,0 +1,11 @@
+@use '../../sass' as *;
+
+.loadingSpinner {
+  grid-column: 2 / 3;
+  margin-top: calc(50% - 8rem);
+  margin-right: 10vw;
+  @include flexCenter;
+  flex-direction: column;
+  gap: 1rem;
+  color: #808080;
+}

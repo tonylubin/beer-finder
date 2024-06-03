@@ -1,0 +1,18 @@
+@use 'variables' as *;
+
+@mixin textUnderline {
+  text-decoration-line: underline;
+  text-decoration-color: var(--textSecondaryColor);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+
+@mixin padding($top,$right,$bottom,$left) {
+  padding: ($top * $base-rem-length) ($right * $base-rem-length) ($bottom * $base-rem-length) ($left * $base-rem-length);
+}
+
+@mixin flexCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

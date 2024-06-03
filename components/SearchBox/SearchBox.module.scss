@@ -1,0 +1,49 @@
+@use '../../sass/' as *;
+
+.inputBox {    
+    width: auto;
+    font-size: ($base-rem-length * 10);
+    background-color: var(--secondaryBg);
+    border-radius: 15px 0px 0px 15px;
+    border: 1px solid var(--borderColor);
+    @include padding(5, 10, 5, 10);
+}
+
+.inputBox:focus {
+    outline-style: solid;
+    outline-color: var(--borderColorAlt);
+}
+
+.wrapper {
+    display: flex;
+}
+
+.btn {
+    background-color: var(--textSecondaryColor);
+    border-radius: 0px 15px 15px 0px;
+    border: 1px solid var(--textSecondaryColor);
+    @include padding(5, 10, 5, 10);
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+.btn:active {
+    background-color: var(--cardColor);
+}
+
+@media screen and (min-width: 768px) {
+
+    .inputBox {
+        font-size: ($base-rem-length * 13);
+    }
+}
+
+
+@media screen and (min-width: 992px) {
+
+    .inputBox {
+        font-size: ($base-rem-length * 13);
+    }
+}
