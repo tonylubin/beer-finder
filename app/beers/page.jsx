@@ -3,6 +3,7 @@ import Main from "../../containers/Main/Main";
 import styles from "./styles.module.scss";
 import LoadingSpinner from "@/components/LoadingSpinner/LoadingSpinner";
 
+
 const Beers = ({ searchParams }) => {
   return (
     <main className={styles.mainContainer}>

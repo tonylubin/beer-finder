@@ -76,23 +76,4 @@ const addFilters = async (filters) => {
   }
 };
 
-const paginatedResults = async (page) => {
-  let resultsPerPage = 10;
-  try {
-    const connection = await clientPromise;
-    const db = connection.db("punkapi");
-    const data = await db
-      .collection("beers")
-      .find({})
-      .sort({ _id: 1 })
-      .limit(resultsPerPage)
-      .skip(page * resultsPerPage)
-      .toArray();
-    return data;
-  } catch (error) {
-    console.error(error);
-  } 
-
-};
-
-export { getAllBeers, addFilters, paginatedResults };
+export { getAllBeers, addFilters };
