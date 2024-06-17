@@ -1,6 +1,7 @@
 "use server";
 
 import clientPromise from "./mongodb";
+import { dbName, collectionName, resultsPerPage } from "./constants";
 
 // database expression queries
 let brewedBefore = (date) => {
@@ -26,16 +27,19 @@ let nameSearch = (term) => {
 };
 
 // get all beers
-const getAllBeers = async () => {
+const getInitialBeers = async () => {
   try {
     const connection = await clientPromise;
-    const db = connection.db("punkapi");
+    const db = connection.db(dbName);
     const data = await db
-      .collection("beers")
+      .collection(collectionName)
       .find({})
       .sort({ _id: 1 })
+      .limit(resultsPerPage)
       .toArray();
-    return data;
+    // document count
+    const dbEntries = await db.collection(collectionName).countDocuments();  
+    return { data, dbEntries };
   } catch (error) {
     console.error(error);
   } 
@@ -45,7 +49,7 @@ const getAllBeers = async () => {
 const addFilters = async (filters) => {
   try {
     const connection = await clientPromise;
-    const db = connection.db("punkapi");
+    const db = connection.db(dbName);
     let pipeline = [];
     for (let [key, value] of Object.entries(filters)) {
       let dbQueryExpr;
@@ -69,11 +73,30 @@ const addFilters = async (filters) => {
       }
     }
     pipeline.push({ $sort: { id: 1 } });
-    let data = await db.collection("beers").aggregate(pipeline).toArray();
+    let data = await db.collection(collectionName).aggregate(pipeline).toArray();
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export { getAllBeers, addFilters };
+const paginatedResults = async (pageNum) => {
+  try {
+    // number of pages/documents to skip
+    const skips = resultsPerPage * (pageNum - 1);
+    const connection = await clientPromise;
+    const db = connection.db(dbName);
+    const data = await db
+      .collection(collectionName)
+      .find({})
+      .sort({ _id: 1 })
+      .skip(skips)
+      .limit(resultsPerPage)
+      .toArray();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }   
+};
+
+export { getInitialBeers, paginatedResults , addFilters };
