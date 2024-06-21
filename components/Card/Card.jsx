@@ -1,11 +1,11 @@
 'use client';
 
-import React from "react";
+import React, { forwardRef } from "react";
 import CardFront from "../CardFront/CardFront";
 import CardBack from "../CardBack/CardBack";
 import styles from "./Card.module.scss";
 
-const Card = ({ beer }) => {
+const Card = forwardRef(function Card({ beer },ref) {
   const {
     id,
     image_url,
@@ -42,10 +42,11 @@ const Card = ({ beer }) => {
       className={styles.cardDisplay}
       key={id}
       onClick={toggleRotationClass}
+      ref={ref}
     >
       {cardContent}
     </article>
   );
-};
+});
 
 export default Card;

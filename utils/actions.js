@@ -4,50 +4,86 @@ import clientPromise from "./mongodb";
 import { dbName, collectionName, resultsPerPage } from "./constants";
 
 // database expression queries
-let brewedBefore = (date) => {
+const brewedBefore = (date) => {
   return { first_brewed: { $lte: new Date(date) } };
 };
 
-let abv = (num) => {
+const abv = (num) => {
   return { abv: { $lte: parseInt(num) } };
 };
 
-let foodPairings = (searchQuery) => {
-  return { food_pairing: { $regex: searchQuery, $options: "i" } };
-};
-
-let nameSearch = (term) => {
+const foodPairings = (foodSelection) => {
   return {
-    $or: [
-      { name: { $regex: term, $options: "i" } },
-      { tagline: { $regex: term, $options: "i" } },
-      { description: { $regex: term, $options: "i" } },
-    ],
+    $search: {
+      index: "default",
+      text: {
+        path: "food_pairing",
+        query: foodSelection,
+        synonyms: "foodPairingSynonyms",
+      },
+    },
   };
 };
 
-// get all beers
-const getInitialBeers = async () => {
-  try {
-    const connection = await clientPromise;
-    const db = connection.db(dbName);
-    const data = await db
-      .collection(collectionName)
-      .find({})
-      .sort({ _id: 1 })
-      .limit(resultsPerPage)
-      .toArray();
-    // document count
-    const dbEntries = await db.collection(collectionName).countDocuments();  
-    return { data, dbEntries };
-  } catch (error) {
-    console.error(error);
-  } 
+const textSearch = (searchTerm) => {
+  return {
+    $search: {
+      index: "default",
+      text: {
+        query: searchTerm,
+        path: ["name", "tagline", "description"],
+      },
+    },
+  };
 };
 
-// filter functions
-const addFilters = async (filters) => {
+const compoundSearchQuery = (searchTerm, foodSelection) => {
+  return {
+    $search: {
+      index: "default",
+      compound: {
+        must: [
+          {
+            text: {
+              query: searchTerm,
+              path: ["name", "tagline", "description"],
+            },
+          },
+        ],
+        filter: [
+          {
+            text: {
+              path: "food_pairing",
+              query: foodSelection,
+              synonyms: "foodPairingSynonyms",
+            },
+          },
+        ],
+      },
+    },
+  };
+};
+
+// let foodPairings = (searchQuery) => {
+//   return { food_pairing: { $regex: searchQuery, $options: "i" } };
+// };
+
+// let nameSearch = (term) => {
+//   return {
+//     $match: {
+//       $or: [
+//         { name: { $regex: term, $options: "i" } },
+//         { tagline: { $regex: term, $options: "i" } },
+//         { description: { $regex: term, $options: "i" } },
+//       ],
+//     },
+//   };
+// };
+
+// adding filtered options
+const getFilteredResults = async (pageNum, filters) => {
   try {
+    const skips = resultsPerPage * (pageNum - 1);
     const connection = await clientPromise;
     const db = connection.db(dbName);
     let pipeline = [];
@@ -60,21 +96,54 @@ const addFilters = async (filters) => {
           break;
         case "food_pairing":
           dbQueryExpr = foodPairings(value);
-          pipeline.push({ $match: dbQueryExpr });
+          pipeline.unshift(dbQueryExpr);
           break;
         case "brewed_before":
           dbQueryExpr = brewedBefore(value);
           pipeline.push({ $match: dbQueryExpr });
           break;
         case "name":
-          dbQueryExpr = nameSearch(value);
-          pipeline.push({ $match: dbQueryExpr });
+          dbQueryExpr = textSearch(value);
+          pipeline.unshift(dbQueryExpr);
           break;
       }
     }
-    pipeline.push({ $sort: { id: 1 } });
-    let data = await db.collection(collectionName).aggregate(pipeline).toArray();
-    return data;
+    pipeline.push(
+      {
+        $facet: {
+          resultsQuery: [
+            { $sort: { _id: 1 } },
+            { $skip: skips },
+            { $limit: resultsPerPage },
+          ],
+          totalCount: [{ $count: "total" }],
+        },
+      },
+      {
+        $project: {
+          totalCount: { $arrayElemAt: ["$totalCount.total", 0] },
+          resultsQuery: 1,
+        },
+      }
+    );
+    // check for 2 $search queries --> to make a compound search query as only 1 $search allowed
+    let pipelineCheck = pipeline.filter((el) => el["$search"]);
+    if (pipelineCheck.length == 2) {
+      let modifiedQuery = compoundSearchQuery(
+        filters.name,
+        filters.food_pairing
+      );
+      // remove search & add new search to start of pipeline
+      pipeline = pipeline.filter((el) => !el["$search"]);
+      pipeline.unshift(modifiedQuery);
+    }
+
+    let data = await db
+      .collection(collectionName)
+      .aggregate(pipeline)
+      .toArray();
+    // data.resultsQuery || data.totalCount
+    return data[0];
   } catch (error) {
     console.log(error);
   }
@@ -93,10 +162,11 @@ const paginatedResults = async (pageNum) => {
       .skip(skips)
       .limit(resultsPerPage)
       .toArray();
-    return data;
+    const totalCount = await db.collection(collectionName).countDocuments();
+    return { data, totalCount };
   } catch (error) {
     console.error(error);
-  }   
+  }
 };
 
-export { getInitialBeers, paginatedResults , addFilters };
+export { getFilteredResults, paginatedResults };

@@ -8,7 +8,6 @@ const Home = async () => {
       <h1>Welcome to my Homepage</h1>
       <Link href="/beers">Enter</Link>
     </>
-
   )
 }
 

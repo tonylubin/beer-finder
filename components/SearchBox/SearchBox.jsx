@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./SearchBox.module.scss";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import SearchIcon from "../Icons/SearchIcon";
@@ -18,12 +18,19 @@ const SearchBox = () => {
     let params = new URLSearchParams(searchParams);
     if (searchTerm.length) {
       params.set("name", searchTerm);
-      router.replace(`${pathName}?${params.toString()}`);
+      router.push(`${pathName}?${params.toString()}`);
     } else {
       params.delete("name");
-      router.replace(`${pathName}?${params.toString()}`);
+      setSearchTerm('');
+      router.push(`${pathName}?${params.toString()}`);
     }
   };
+
+  // keep search input ui in sync with url
+  useEffect(() => {
+    let name = searchParams.has('name') ? searchParams.get('name') : '';
+    setSearchTerm(name)
+  }, [searchParams])
 
   return (
     <div className={styles.wrapper}>
@@ -31,9 +38,8 @@ const SearchBox = () => {
           className={styles.inputBox}
           type="text"
           placeholder="Search..."
-          onInput={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => setSearchTerm(e.target.value)}
           value={searchTerm}
-          defaultValue={searchParams.get("name")?.toString()}
           onKeyUp={(e) => e.key === "Enter" && handleSearch()}
         ></input>
         <button className={styles.btn} type="button" onClick={handleSearch}>
