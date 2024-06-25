@@ -88,7 +88,7 @@ const FiltersList = () => {
       : setClassicChecked(false);
     searchParams.has("food_pairing")
       ? setFoodPairingSelected(searchParams.get("food_pairing"))
-      : setFoodPairingSelected("title");
+      : setFoodPairingSelected("");
   }, [searchParams]);
 
   return (
@@ -126,7 +126,7 @@ const FiltersList = () => {
           value={foodPairingSelected}
           onChange={handleDropdownStatus}
         >
-          <option value={"title"}>Select food pairing--</option>
+          <option value={""}>Select food pairing--</option>
           <option value={"meat"}>Meat</option>
           <option value={"seafood"}>Seafood</option>
           <option value={"spicy"}>Spicy</option>
