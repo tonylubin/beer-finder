@@ -1,3 +1,4 @@
+import ProgressBarProvider from "@/containers/ProgressBarProvider";
 import "../index.scss";
 import { ThemeProvider } from "@/containers/ThemeContext";
 
@@ -8,10 +9,15 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+
   return (
     <ThemeProvider>
       <html lang="en">
-        <body>{children}</body>
+        <body>
+          <ProgressBarProvider>
+            {children}
+          </ProgressBarProvider>
+        </body>
       </html>
     </ThemeProvider>
   );

@@ -6,7 +6,8 @@ import BeerIcon from "@/components/Icons/BeerIcon";
 import ClassicIcon from "@/components/Icons/ClassicIcon";
 import FilterItem from "@/components/FilterItem/FilterItem";
 import MealIcon from "@/components/Icons/MealIcon";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next-nprogress-bar";
 
 const FiltersList = () => {
   const [abvChecked, setAbvChecked] = useState(false);
