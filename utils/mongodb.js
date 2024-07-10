@@ -1,4 +1,4 @@
-import { MongoClient, ServerApiVersion } from 'mongodb';
+import { MongoClient, ServerApiVersion } from "mongodb";
 
 const uri = process.env.MONGODB_URI || "";
 const options = {
@@ -6,30 +6,37 @@ const options = {
     version: ServerApiVersion.v1,
     strict: false,
     deprecationErrors: true,
-  }
+  },
 };
 
 let client;
 let clientPromise;
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('Please add your Mongo URI to .env.local')
-}
+if (process.env.NODE_ENV === "test") {
+  const mockClient = (uri) => new MongoClient(uri);
+  clientPromise = mockClient;
+};
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === "development") {
   // In development mode, use a global variable so that the value
   // is preserved across module reloads caused by HMR (Hot Module Replacement).
   if (!global._mongoClientPromise) {
-    client = new MongoClient(uri, options)
-    global._mongoClientPromise = client.connect()
+    client = new MongoClient(uri, options);
+    global._mongoClientPromise = client.connect();
   }
-  clientPromise = global._mongoClientPromise
-} else {
+  clientPromise = global._mongoClientPromise;
+};
+
+if (process.env.NODE_ENV === "production") {
   // In production mode, it's best to not use a global variable.
-  client = new MongoClient(uri, options)
-  clientPromise = client.connect()
-}
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
+};
+
+// if (!process.env.MONGODB_URI) {
+//   throw new Error('Please add your Mongo URI to .env.local')
+// }
 
 // Export a module-scoped MongoClient promise. By doing this in a
 // separate module, the client can be shared across functions.
-export default clientPromise
+export default clientPromise;

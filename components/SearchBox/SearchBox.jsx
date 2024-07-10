@@ -7,6 +7,7 @@ import SearchIcon from "../Icons/SearchIcon";
 import { ClipLoader } from "react-spinners";
 import { useRouter } from "next-nprogress-bar";
 
+
 const SearchBox = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -46,14 +47,14 @@ const SearchBox = () => {
         onKeyUp={(e) => e.key === "Enter" && handleSearch()}
       ></input>
       <button
+        aria-label="search catalogue"
         className={styles.btn}
         type="button"
         onClick={() => {
           startTransition(() => handleSearch());
         }}
       >
-        {isPending ? <ClipLoader size={20} color="#fff" /> : <SearchIcon classname={styles.icon} />}
-        {/* <SearchIcon classname={styles.icon} /> */}
+        {isPending ? <ClipLoader data-testid="loader" size={20} color="#fff" /> : <SearchIcon classname={styles.icon} />}
       </button>
     </div>
   );

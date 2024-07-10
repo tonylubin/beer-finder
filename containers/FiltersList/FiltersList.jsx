@@ -27,7 +27,7 @@ const FiltersList = () => {
       router.push(`${pathName}?${params.toString()}`);
     } else {
       setAbvChecked(false);
-      params.delete(e.target.id);
+      params.delete("abv_lt");
       router.push(`${pathName}?${params.toString()}`);
     }
   };
@@ -40,7 +40,7 @@ const FiltersList = () => {
       router.push(`${pathName}?${params.toString()}`);
     } else {
       setClassicChecked(false);
-      params.delete(e.target.id);
+      params.delete("brewed_before");
       router.push(`${pathName}?${params.toString()}`);
     }
   };
@@ -66,7 +66,6 @@ const FiltersList = () => {
     description: "Low Abv (< 4%)",
     checkboxFunc: handleAbvCheckbox,
     type: "checkbox",
-    id: "abv_lt",
     icon: (
       <BeerIcon classname={`${styles.filterHolder__icon} ${styles.beer}`} />
     ),
@@ -77,7 +76,6 @@ const FiltersList = () => {
     description: "Classic Range",
     checkboxFunc: handleClassicCheckbox,
     type: "checkbox",
-    id: "brewed_before",
     icon: <ClassicIcon classname={styles.filterHolder__icon} />,
   };
 
@@ -101,7 +99,6 @@ const FiltersList = () => {
           description={abvFilter.description}
           checkboxFunc={abvFilter.checkboxFunc}
           type={abvFilter.type}
-          id={abvFilter.id}
           isChecked={abvChecked}
         />
       </div>
@@ -112,7 +109,6 @@ const FiltersList = () => {
           description={classicFilter.description}
           checkboxFunc={classicFilter.checkboxFunc}
           type={classicFilter.type}
-          id={classicFilter.id}
           isChecked={classicChecked}
         />
       </div>

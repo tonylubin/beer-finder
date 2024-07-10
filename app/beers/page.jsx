@@ -9,8 +9,6 @@ const Beers = async ({ searchParams }) => {
   let beerData;
   let collectionCount;
 
-  await new Promise(resolve => setTimeout(resolve,3000))
-
   // check if search params present
   if (Object.keys(searchParams).length) {
     const { totalCount, resultsQuery } = await getFilteredResults(

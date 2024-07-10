@@ -19,7 +19,7 @@ const ToggleSwitch = () => {
   }, [theme]);
 
   return (
-    <button type="button" onClick={toggleTheme} className={styles.btn}>
+    <button aria-label={`${theme} theme`} type="button" onClick={toggleTheme} className={styles.btn}>
       {theme === "light" && <MoonIcon classname={styles.moon} />}
       {theme === "dark" && <SunIcon classname={styles.sun} />}
     </button>

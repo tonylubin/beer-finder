@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./FilterItem.module.scss";
 
 function FilterItem(props) {
-  const { name, type, id, checkboxFunc, description, isChecked } = props;
+  const { name, type, checkboxFunc, description, isChecked } = props;
 
   return (
     <div className={styles.filterItem}>
@@ -14,8 +14,9 @@ function FilterItem(props) {
         checked={isChecked}
         onChange={checkboxFunc}
         type={type}
-        id={id}
+        id={name}
         name={name}
+        data-testid={name}
       ></input>
     </div>
   );

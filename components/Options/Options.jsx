@@ -33,7 +33,7 @@ const Options = () => {
         <ToggleSwitch />
       </div>
       <div className={styles.btnHolder}>
-        <button className={styles.btnHolder__btn} onClick={revealBox}>
+        <button className={styles.btnHolder__btn} onClick={revealBox} aria-label="extra options">
           Filter / Search
         </button>
       </div>

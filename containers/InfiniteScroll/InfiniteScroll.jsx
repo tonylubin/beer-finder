@@ -51,7 +51,7 @@ const InfiniteScroll = ({ searchParams, beerData, collectionCount }) => {
       )}
       {loading && (data.length !== collectionCount) && (
         <div className={styles.loader}>
-          <SyncLoader color={"var(--textSecondaryColor)"} />
+          <SyncLoader color={"var(--textSecondaryColor)"} data-testid="next-page" />
         </div>
       )}
       {!data.length && (

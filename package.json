@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "playwright test --ui",
+    "test:unit": "vitest"
   },
   "dependencies": {
+    "@vitejs/plugin-react": "^4.3.1",
     "mongodb": "^6.6.2",
     "next": "^14.2.4",
     "next-nprogress-bar": "^2.3.12",
@@ -18,8 +21,17 @@
     "react-spinners": "^0.13.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.45.1",
+    "@testing-library/jest-dom": "^6.4.6",
+    "@testing-library/react": "^16.0.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^20.14.10",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
-    "sass": "^1.77.1"
+    "jsdom": "^24.1.0",
+    "next-router-mock": "^0.9.13",
+    "sass": "^1.77.1",
+    "vitest": "^1.6.0",
+    "vitest-mongodb": "^0.0.5"
   }
 }
