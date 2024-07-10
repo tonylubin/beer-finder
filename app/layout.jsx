@@ -1,6 +1,7 @@
 import ProgressBarProvider from "@/containers/ProgressBarProvider";
 import "../index.scss";
 import { ThemeProvider } from "@/containers/ThemeContext";
+import { Suspense } from "react";
 
 export const metadata = {
   title: "Beer finder",
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
     <ThemeProvider>
       <html lang="en">
         <body>
-          <ProgressBarProvider>
-            {children}
-          </ProgressBarProvider>
+          <Suspense>
+            <ProgressBarProvider>
+              {children}
+            </ProgressBarProvider>
+          </Suspense>
         </body>
       </html>
     </ThemeProvider>
